@@ -1,0 +1,218 @@
+/*
+pale red: f15a4a
+light tan: d0c7af
+mid tan: b0a091
+dark tan: 4d443b
+light blue: 485562
+mid blue: 2c343f
+dark blue: 14151b
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Oswald');
+
+body {
+  font-size: 14px;
+  font-family: 'Open Sans';
+  font-weight: 400;
+  margin: 0px;
+}
+
+h1, h2, h3, h4, h5 { font-family: 'Oswald' }
+strong { font-weight: 700; }
+
+a {
+  transition: all 0.4s ease;
+}
+
+button {
+  width: 120px;
+  height: 36px;
+  margin: 2px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0px #14151b;
+  transition: background-color 0.4s ease;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #f15a4a;
+}
+
+.shogi__board {
+  z-index: 75;
+}
+
+.match {
+  color: #d0c7af;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  margin: 0 auto;
+  background: radial-gradient(#485562, #14151b);
+}
+
+.match__container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.match__turn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px;
+}
+
+.match__actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+.match__actions > * {
+  width: 70px;
+  height: 24px;
+  color: #d0c7af;
+  text-shadow: 1px 1px 1px #14151b;
+  padding: 8px 8px;
+}
+.match__actions > *:hover {
+  cursor: pointer;
+  text-shadow: 1px 1px 1px #f15a4a;
+}
+.match__action-menu {
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-size: 18px;
+  text-align: center;
+}
+.match__action-left {
+  font-size: 16px;
+  border-right: solid 1px #485562;
+  border-radius: 6px;
+  text-align: left;
+}
+.match__action-right {
+  font-size: 16px;
+  border-left: solid 1px #485562;
+  border-radius: 6px;
+  text-align: right;
+}
+
+.active {
+  cursor: pointer;
+  transition: box-shadow 0.4s ease;
+  box-shadow: inset 0px 0px 0px 0px rgba(241, 90, 74, 0.0);
+}
+
+.active:hover {
+  box-shadow: inset 0px 0px 0px 4px rgba(241, 90, 74, 0.8);
+}
+
+.selected {
+  box-shadow: inset 0px 0px 0px 4px rgba(0,0,0,0.1);
+  background-image: radial-gradient(#ec796c, #f15a4a);
+}
+
+.hinted {
+  box-shadow: inset 0px 0px 0px 4px rgba(241, 90, 74, 0.8);
+  background-image: radial-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.0));
+}
+.hinted:hover {
+  cursor: pointer;
+  box-shadow: inset 0px 0px 0px 4px rgba(241, 90, 74, 0.8);
+  background-image: radial-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.0));
+}
+
+.match__actions > .mobile {
+  display: block;
+}
+.match__actions > .desktop {
+  display: none;
+}
+.match__actions > .midpoint {
+  display: none;
+}
+
+@media screen and (min-width: 740px) {
+
+  .match__turn {
+    flex-direction: row;
+    height: 120px;
+  }
+
+  .match__play {
+    display: grid;
+    margin: 0 auto;
+  }
+
+  .match__actions {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+    height: 120px;
+  }
+
+}
+
+@media screen and (min-width: 875px) {
+  .match {
+    grid-template-columns: 10fr;
+  }
+  .match__turn {
+    margin-top: 10vh;
+    height: 70vh;
+    min-width: 120px;
+    flex-direction: column;
+  }
+  .match__play {
+    grid-template-columns: 1fr 9fr 2fr;
+  }
+  .match__actions {
+    height: 100vh;
+    flex-flow: column nowrap;
+    justify-content: center;
+  }
+  .match__actions > * {
+    margin: 16px;
+  }
+  .match__actions > .mobile {
+    display: none;
+  }
+  .match__actions > .midpoint {
+    display: block;
+  }
+  .match__actions > .desktop {
+    display: block;
+  }
+  .match .popup-box-min, .match .popup-box {
+    margin-right: -80px;
+  }
+  .match__board {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1130px) {
+  .match {
+    grid-template-columns: 1fr 9fr;
+  }
+  .match__play {
+    grid-template-columns: 1fr 8fr 3fr;
+  }
+  .match__actions > .midpoint {
+    display: none;
+  }
+}

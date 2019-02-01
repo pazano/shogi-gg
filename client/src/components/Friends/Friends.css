@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Oswald');
+
+body {
+  font-size: 14px;
+  font-family: 'Open Sans';
+  font-weight: 400;
+  margin: 0px;
+}
+
+h1, h2, h3, h4, h5 { font-family: 'Oswald' }
+strong { font-weight: 700; }
+
+.friend-container {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 500px;
+  width: 100%;
+  max-width: 650px;
+}
+
+.friend-title {
+  padding-left: 10px;
+  padding-top: 5px;
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #000;
+}
+
+.friend-head {
+  padding: none;
+  padding-left: 10px;
+  text-transform: uppercase;
+  max-width: 650px;
+  color: #000;
+  font-family: 'Oswald';
+  font-weight: 400;
+  font-size: 25px;
+}
+
+.friend-search {
+  float: right; 
+  display: inline;
+}
+
+.friend-button {
+  float: right;
+  font-family: 'Oswald';
+  background-color: #6a6969;
+  color: #fff;
+  padding: 12px;
+  width: 80px;
+  height: 45px;
+  font-size: 16px;
+  border-radius: 3px;
+  outline: 0;
+  cursor: pointer;
+  justify-content: center;
+  display: inline;
+}
+
+.friend-form {
+  font-family: 'Oswald';
+  background-color: #cecece;
+  font-size: 16px;
+  height: 45px;
+  width: 200px;
+  border-radius: 3px;
+  text-align: center;
+  display: inline;
+}
+
+.current-friend-container {
+  font-family: 'Oswald';
+  font-size: 16px;
+  justify-content: center;
+  height: 60px;
+  padding: 5px;
+  vertical-align: center;
+}
+
+.friend-username {
+  padding-left: 25px;
+  width: auto;
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.inline-button-friend {
+  padding-left: 25px;
+  text-align: center;
+  vertical-align: center;
+  cursor: pointer;
+}
+
+.friend-avi {
+  padding-left: 20px;
+  width: 50px;
+}

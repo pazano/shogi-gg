@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Oswald');
+
+body {
+  font-size: 14px;
+  font-family: 'Open Sans';
+  font-weight: 400;
+  margin: 0px;
+}
+
+h1, h2, h3, h4, h5 { font-family: 'Oswald' }
+strong { font-weight: 700; }
+
+.leaderboard-container {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 200px;
+  width: 100%;
+  font-family: "Oswald";
+  max-height: 600px;
+}
+
+.leaderboard-head {
+  padding-top: 5px;
+  padding-left: 10px;
+  color: #000;
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 25px;
+  background-color: #333;
+  color: #eee;
+  height: 50px;
+}
+
+.leaderboard-list-container {
+}
+
+.leader-avi {
+  /* padding-left: 25px; */
+  width: 50px;
+}
+
+.leader-rank {
+  width: auto;
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: 400;
+  padding-left: 25px;
+}
+
+.leader-username {
+  /* padding-left: 5px; */
+  /* width: auto; */
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  /* font-size: 20px; */
+  /* float: right; */
+}
+
+.leader-rating {
+  /* padding-left: 25px; */
+  width: auto;
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  /* font-size: 20px; */
+  /* float: right; */
+  /* padding-top: 28px; */
+  /* padding-right: 10px; */
+}
+
+.leader-container {
+  height: 50px;
+  border-bottom: solid 1px #ccc;
+  display: grid;
+  grid-template-columns: 2fr 4fr 4fr;
+  font-size: 20px;
+  text-align: center;
+  align-items: center;
+}
+
+.leaderboard-list-head {
+  height: 30px;
+  font-size: 22px;
+  border-bottom: solid 1px #ccc;
+  display: grid;
+  grid-template-columns: 2fr 4fr 4fr;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.leader-player {
+  padding: 0px 25px;
+  align-items: left;
+  display: flex;
+}
+
+.leader-username {
+  padding-left: 18px;
+  line-height: 2.5;
+}

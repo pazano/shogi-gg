@@ -1,0 +1,93 @@
+/*
+pale red: f15a4a
+light tan: d0c7af
+mid tan: b0a091
+dark tan: 4d443b
+light blue: 485562
+mid blue: 2c343f
+dark blue: 14151b
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Oswald');
+
+
+.auth__button {
+  width: 200px;
+}
+
+button {
+  color: #eee;
+  width: 120px;
+  height: 36px;
+  margin: 2px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0px #14151b;
+  transition: background-color 0.4s ease;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #f15a4a;
+}
+
+
+.auth__form-input {
+  background-color: #14151b;
+  color: #eee;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  margin: 1px;
+  border: 1px;
+  border-radius: 2px;
+  text-align: center;
+  font-family: 'Oswald';
+  width: 200px;
+  transition: all 0.4s ease;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #14151b;
+}
+.auth__form-input:focus {
+  color: #eee;
+  border-color: #eee;
+  text-shadow: 1px 1px 2px #14151b;
+  box-shadow:
+    inset 0px 0px 15px 2px #485562,
+    0px 0px 5px 1px #f15a4a;
+}
+
+.auth__page {
+  background: radial-gradient(#485562, #14151b);
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.auth__page-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: 450px;
+}
+
+.sg-logo {
+  height: 100px;
+}
+
+.auth__form-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.auth__form-container > * {
+  margin: 8px;
+}

@@ -1,0 +1,53 @@
+.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(#14151b, #485562);
+  height: 100%;
+}
+
+.logo {
+  float: left;
+  border-right: none;
+  max-height: 100px;
+  width: 280px;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.logo a:hover {
+  background-color: transparent;
+}
+
+.nav a {
+  float: right;
+  flex: 1;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 60px;
+  font-weight: 400;
+  font-family: Oswald;
+}
+
+.avi {
+  float: right;
+  width: 50px;
+  color: white;
+  padding: 30px 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .avi {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+li a:hover {
+  background-color: #6a6969;
+}
