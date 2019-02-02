@@ -4,7 +4,12 @@ import redis from "redis";
 
 import { success, error } from "../../lib/log";
 
-console.log(process.env.NODE_ENV)
+if (!process.env.NODE_ENV) {
+  // When db:setup is run, the environment doesn't load through entry.js
+  // ensure env variables are available for db connection
+  const path = require('path');
+  const env = require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
+}
 
 const config = {
   user:
