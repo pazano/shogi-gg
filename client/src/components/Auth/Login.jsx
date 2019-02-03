@@ -1,33 +1,40 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { HalfLockup } from "../Global/Logo/index.js"
 import { FadeIn } from '../Global/Animation/Transitions.jsx';
 import "./Auth.css";
-
-const {REST_SERVER_URL} = process.env;
+import auth from "../../../lib/auth.js";
 
 class Login extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      username: null,
+      password: null,
+      error: null,
+    };
   }
+
+  setError = (message) => {
+    this.setState({
+      'error': message
+    });
+  }
+
+  clearError = () => {
+    if(this.state.error) this.setState({ error: null });
+  }
+
 
   submitAuthData = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${REST_SERVER_URL}/api/auth/login`, this.state, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      localStorage.setItem('email', data.email);
-      localStorage.setItem('username', data.username);
-      localStorage.setItem('id', data.id);
-      localStorage.setItem('token', data.token.accessToken);
-      localStorage.setItem('unrankedRating', data.rating_unranked);
-      localStorage.setItem('rankedRating', data.rating_ranked);
-      if(data.avatar != null){localStorage.setItem('avi', data.avatar)}
-      data.email ? this.props.history.push('/home') : this.props.history.push('/login');
+      const { username, password } = this.state;
+      if (username && password) {
+        await auth.login(username, password);
+        this.props.history.push('/home');
+      }
     } catch (err) {
-      alert("Invalid login attempt")
+      this.setError("Invalid credentials");
     }
   }
 
@@ -37,12 +44,16 @@ class Login extends Component {
   }
 
   render() {
+
     return(
       <div className="auth__page">
         <FadeIn>
           <div className="auth__page-container">
             <div className="logo__container">
               <HalfLockup />
+            </div>
+            <div className="auth__page-error">
+              {this.state.error}
             </div>
             <form className="auth__form-container">
               <input
@@ -52,6 +63,7 @@ class Login extends Component {
                 placeholder={"ENTER YOUR USERNAME"}
                 className="auth__form-input"
                 onChange={this.handleInputChange}
+                onFocus={this.clearError}
                 />
               <input
                 name="password"
@@ -60,6 +72,7 @@ class Login extends Component {
                 placeholder={"ENTER YOUR PASSWORD"}
                 className="auth__form-input"
                 onChange={this.handleInputChange}
+                onFocus={this.clearError}
                 />
               <button
                 type="submit"

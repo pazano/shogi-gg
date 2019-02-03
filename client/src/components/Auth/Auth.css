@@ -78,8 +78,9 @@ button:hover {
   height: 450px;
 }
 
-.sg-logo {
-  height: 100px;
+.auth__page-error {
+  height: 20px;
+  color: #f15a4a;
 }
 
 .auth__form-container {

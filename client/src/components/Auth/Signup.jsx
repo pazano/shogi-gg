@@ -4,26 +4,41 @@ import { HalfLockup } from '../Global/Logo/index.js'
 import { FadeIn } from '../Global/Animation/Transitions.jsx';
 
 import './Auth.css';
+import auth from '../../../lib/auth.js';
 
 const {REST_SERVER_URL} = process.env;
 
 class Signup extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      email: null,
+      username: null,
+      password: null,
+      error: null,
+    };
+  }
+
+  setError = (message) => {
+    this.setState({
+      'error': message
+    });
+  }
+
+  clearError = () => {
+    if (this.state.error) this.setState({ error: null });
   }
 
   submitAuthData = async (e) => {
     e.preventDefault();
-    const { email, password, username } = this.state;
-    const body = { email, password, username };
     try {
-      const data = await axios.post(`${REST_SERVER_URL}/api/auth/signup`, body, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      data ? this.props.history.push('/login') : this.props.history.push('/signup');
+      const { email, username, password } = this.state;
+      if (email && username && password) {
+        await auth.register(email, username, password);
+        this.props.history.push('/home')
+      }
     } catch (err) {
-      alert("Invalid account info, username already exists")
+      this.setError("Username already exists");
     }
   }
 
@@ -39,6 +54,9 @@ class Signup extends Component {
           <div className="auth__page-container">
             <div className="logo__container">
               <HalfLockup />
+            </div>
+            <div className="auth__page-error">
+              {this.state.error}
             </div>
             <form className="auth__form-container">
               <input
