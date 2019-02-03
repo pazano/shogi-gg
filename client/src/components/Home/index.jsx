@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-import randomstring from "randomstring";
 import io from "socket.io-client/dist/socket.io.js";
 
-import HomeChat from "./Chat/index.jsx";
 import OpenMatches from "./OpenMatches/index.jsx";
 import PrevMatches from "./PrevMatches/index.jsx";
 import FriendChallenge from "./FriendChallenge/index.jsx";
@@ -43,8 +40,7 @@ class Home extends Component {
   }
 
   logout = () => {
-    window.localStorage.clear();
-    // this.socket.close();
+    localStorage.clear();
     this.props.history.push("/login");
   };
 
@@ -82,22 +78,14 @@ class Home extends Component {
           <Nav socket={this.socket} />
         </div>
         <div className="home-components">
-          <div className="divider" />
           <div className="match-container">
-            <div className="match_lists">
-              <OpenMatches history={this.props.history} socket={this.socket} />
-              <PrevMatches history={this.props.history} socket={this.socket} />
-            </div>
-            <div className="divider" />
-            <Leaderboard history={this.props.history} socket={this.socket} />
+            <PrevMatches history={this.props.history} socket={this.socket} />
           </div>
-          <div className="divider" />
           <FriendChallenge
             history={this.props.history}
             socket={this.socket}
             showActivePopups={this.showActivePopups}
           />
-          <div className="divider" />
         </div>
         <ChatPopup
           socket={this.socket}
@@ -111,7 +99,3 @@ class Home extends Component {
 }
 
 export default Home;
-
-// <div className="chat">
-//   <HomeChat socket={this.socket} />
-// </div>
