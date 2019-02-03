@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import io from "socket.io-client/dist/socket.io.js";
 
-import PrevMatches from "./PrevMatches/index.jsx";
+import MatchList from "./MatchList/index.jsx";
 import Competitive from "./Competitive/Competitive.jsx"
 import FriendsList from "./FriendsList/index.jsx";
 import Nav from "../Global/Nav/Nav.jsx";
@@ -76,10 +76,10 @@ class Home extends Component {
       <div className="dashboard">
         <div className="dashboard__content">
           <div className="dashboard__content-header">
-            <Nav socket={this.socket} />
+            <Nav history={this.props.history} socket={this.socket} />
           </div>
           <div className="dashboard__content-modules">
-            <PrevMatches history={this.props.history} socket={this.socket} />
+            <MatchList history={this.props.history} socket={this.socket} />
             <Competitive />
           </div>
           <ChatPopup

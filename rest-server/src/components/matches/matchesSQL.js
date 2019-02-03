@@ -19,13 +19,16 @@ export const createMatchHelper = ({
 };
 
 export const fetchMatchHelper = ({ matchId, userId, black, white }) => {
+  console.warn(`FETCHING MATCH: id=${matchId}, userId=${userId}, black=${black}, white=${white}`)
   if (userId) {
+    console.log('first branch')
     return `
-      SELECT id,black,white,turn,modified FROM matches
+      SELECT id,black,white,turn,type,event_log,modified FROM matches
       WHERE status=0 AND (black='${userId}'
       OR white='${userId}')
     `;
   } else if (black && white) {
+    console.log('second branch')
     return `
       BEGIN;
       SELECT * FROM matches WHERE id='${matchId}';
@@ -34,6 +37,7 @@ export const fetchMatchHelper = ({ matchId, userId, black, white }) => {
       COMMIT;
     `;
   } else {
+    console.log('by matchId only')
     return `
       SELECT * FROM matches WHERE id='${matchId}'
     `;

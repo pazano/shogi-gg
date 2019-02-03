@@ -10,6 +10,7 @@ class Nav extends Component {
     this.state = {
       username: localStorage.username,
     };
+    this.handlePlayMatchClick = this.handlePlayMatchClick.bind(this);
   }
 
   async handlePlayMatchClick(ranked) {

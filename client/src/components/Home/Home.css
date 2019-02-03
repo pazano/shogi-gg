@@ -1,5 +1,7 @@
 body {
   margin: 0px;
+  font-family: 'Oswald';
+  color: #eee;
 }
 
 h1, h2, h3 {
@@ -74,18 +76,19 @@ button {
 }
 
 .dashboard__section-header {
-  height: 40px;
+  height: 32px;
   width: 100%;
   background-image: radial-gradient(
     circle at center left,
     #f15a4a,
     transparent 60%
-  )
+  );
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
-
 .dashboard__section-header h3 {
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 18px;
+  line-height: 32px;
   padding-left: 8px;
   text-transform: uppercase;
   color: #eee;

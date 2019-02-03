@@ -2,11 +2,26 @@ import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
 
-import "./PrevMatches.css";
+import "./MatchList.css";
 
 const { REST_SERVER_URL } = process.env;
 
-class PrevMatches extends Component {
+const matchTypes = [
+  {
+    label: "Quick Match",
+    style: "quick-match"
+  },
+  {
+    label: "Ranked",
+    style: "ranked-match"
+  },
+  {
+    label: "Friendly",
+    style: "friend-match"
+  }
+]
+
+class MatchList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,22 +142,24 @@ class PrevMatches extends Component {
                 onClick={() => this.handleMatchSelect(match)}
                 key={match.id}
                 className={`dashboard__match-item  ${
-                  match.turn === "YOUR MOVE" ? "prev_match_move" : "awaiting"
+                  matchTypes[match.type].style
                 }`}
               >
-                <div className="prev_match_opponent">
-                vs:
+                <div className="match-item__type">
+                  { matchTypes[match.type].label }
+                </div>
+                <div className="match-item__opponent">
                   {`${
                     match.blackName === this.state.username
                       ? match.whiteName
                       : match.blackName
                   }`}
                 </div>
-                <div className="dashboard__match-item__details">
-                  <div>
-                    {match.event_log ? match.event_log.length : 'New'}
+                <div className="match-item__details">
+                  <div className="match-item__total-turns">
+                    {match.event_log ? `Turn: ${match.event_log.length}` : 'New'}
                   </div>
-                  <div className="prev_match_time">
+                  <div className="match-item__last-move">
                     {moment(match.modified).fromNow()}
                   </div>
                 </div>
@@ -155,8 +172,4 @@ class PrevMatches extends Component {
   }
 }
 
-export default PrevMatches;
-
-// <div className="prev_match_turn">
-//   {match.turn === "YOUR MOVE" ? "YOUR MOVE" : null}
-// </div>
+export default MatchList;
