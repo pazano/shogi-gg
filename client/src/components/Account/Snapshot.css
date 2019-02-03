@@ -4,11 +4,7 @@
 }
 
 .match-snapshot-container{
-  display: inline;
-  float: right;
-  vertical-align: top;
-  font-size: 12px;
-  padding-top: 10px;
+  padding: 30px;
 }
 
 .circle-background,
@@ -27,6 +23,6 @@
 }
 
 .circle-text {
-  font-size: 12px;
+  font-size: 32px;
   fill: #f15a4a;
 }

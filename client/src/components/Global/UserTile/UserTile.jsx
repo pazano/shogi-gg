@@ -5,7 +5,7 @@ import './UserTile.css';
 
 const { AVATAR_URL } = process.env;
 
-export const UserTile = ({ socket, logoutAction }) => {
+const UserTile = ({ socket, logoutAction }) => {
   let aviSrc = localStorage.avi ? `${AVATAR_URL}${localStorage.avi}` : "http://res.cloudinary.com/shogigrandmasters/image/upload/v1521760976/mi69trcbxaq3ubkq4yh4.png";
   let aviStyle = {
     backgroundImage: `url(${aviSrc})`
@@ -24,3 +24,5 @@ export const UserTile = ({ socket, logoutAction }) => {
     </div>
   )
 }
+
+export default UserTile;
