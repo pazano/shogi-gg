@@ -30,8 +30,25 @@ const login = async (username, password) => {
   };
 }
 
+const register = async (email, username, password) => {
+  const { data } = await axios.post(`${REST_SERVER_URL}/api/auth/signup`, {email, username, password}, {
+    headers: { 'Content-Type': 'application/json' }
+  });
+  if (data) {
+    startLocalSession(data);
+    return {
+      active: true,
+      message: 'Registration Successful'
+    }
+  }
+  return {
+    active: false,
+    message: 'Registration Failed'
+  }
+}
 
 export default {
   startLocalSession,
   login,
+  register
 }
