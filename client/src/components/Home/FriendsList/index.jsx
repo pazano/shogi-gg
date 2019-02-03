@@ -44,7 +44,7 @@ const ChallengeAction = ({ user, currentUser, click }) => {
   );
 }
 
-class FriendChallenge extends Component {
+class FriendsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -201,13 +201,11 @@ class FriendChallenge extends Component {
 
   renderLoggedOnFriends() {
     return this.state.friends.map(friend => {
-      // if (this.state.friends.length && this.state.users[friend.id].loggedOn) {
       return (
         <option key={friend.id} value={JSON.stringify(friend)}>
           {friend.username}
         </option>
       );
-      // }
     });
   }
 
@@ -278,12 +276,7 @@ class FriendChallenge extends Component {
           {this.state.friends.map((user, index) => (
             <div className="friends__list-item" key={index}>
               <div className="friends__list-profile">
-                <img
-                  className="friends__list-avatar"
-                  src={`${AVATAR_URL}/${user.avatar}`}
-                />
                 <div className="friends__list-username" onClick={() => this.props.showActivePopups(user)}>{user.username}</div>
-                <MessageAction user={user} click={this.props.showActivePopups} />
               </div>
               <div className="friends__list-actions">
                 <div>{this.renderChallengeButton(user)}</div>
@@ -299,4 +292,4 @@ class FriendChallenge extends Component {
   }
 }
 
-export default FriendChallenge;
+export default FriendsList;

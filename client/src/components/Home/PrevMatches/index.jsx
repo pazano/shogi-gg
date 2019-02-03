@@ -116,29 +116,35 @@ class PrevMatches extends Component {
 
   render() {
     return (
-      <div className="prev_match_container">
-        <div className="prev_match_head">REJOIN MATCH</div>
-        <div className="prev_match_select">
+      <div>
+        <div className="dashboard__section-header">
+          <h3>Open Matches</h3>
+        </div>
+        <div className="dashboard__match-list">
           {this.state.prevMatches.map(match => {
             return (
               <div
                 onClick={() => this.handleMatchSelect(match)}
                 key={match.id}
-                className={`prev_match_items  ${
+                className={`dashboard__match-item  ${
                   match.turn === "YOUR MOVE" ? "prev_match_move" : "awaiting"
                 }`}
               >
-                <div className="prev_match_vs">Opponent: </div>
                 <div className="prev_match_opponent">
+                vs:
                   {`${
                     match.blackName === this.state.username
                       ? match.whiteName
                       : match.blackName
                   }`}
                 </div>
-
-                <div className="prev_match_time">
-                  {moment(match.modified).fromNow()}
+                <div className="dashboard__match-item__details">
+                  <div>
+                    {match.event_log ? match.event_log.length : 'New'}
+                  </div>
+                  <div className="prev_match_time">
+                    {moment(match.modified).fromNow()}
+                  </div>
                 </div>
               </div>
             );

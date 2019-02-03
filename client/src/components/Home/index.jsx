@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import io from "socket.io-client/dist/socket.io.js";
 
-import OpenMatches from "./OpenMatches/index.jsx";
 import PrevMatches from "./PrevMatches/index.jsx";
-import FriendChallenge from "./FriendChallenge/index.jsx";
-import Leaderboard from "./Leaderboard/index.jsx";
+import Competitive from "./Competitive/Competitive.jsx"
+import FriendsList from "./FriendsList/index.jsx";
 import Nav from "../Global/Nav/Nav.jsx";
+import UserTile from "../Global/UserTile/UserTile.jsx"
 import ChatPopup from "./Chat/popup.jsx";
 
 import "./Home.css";
@@ -73,26 +73,32 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="home-container">
-        <div className="nav-container">
-          <Nav socket={this.socket} />
-        </div>
-        <div className="home-components">
-          <div className="match-container">
-            <PrevMatches history={this.props.history} socket={this.socket} />
+      <div className="dashboard">
+        <div className="dashboard__content">
+          <div className="dashboard__content-header">
+            <Nav socket={this.socket} />
           </div>
-          <FriendChallenge
+          <div className="dashboard__content-modules">
+            <PrevMatches history={this.props.history} socket={this.socket} />
+            <Competitive />
+          </div>
+          <ChatPopup
+            socket={this.socket}
+            activePopups={this.state.activePopups}
+            removeActivePopup={this.removeActivePopup}
+            minimizePopup={this.minimizePopup}
+          />
+        </div>
+        <div className="dashboard__user-panel">
+          <UserTile
+            socket={this.socket}
+          />
+          <FriendsList
             history={this.props.history}
             socket={this.socket}
             showActivePopups={this.showActivePopups}
           />
         </div>
-        <ChatPopup
-          socket={this.socket}
-          activePopups={this.state.activePopups}
-          removeActivePopup={this.removeActivePopup}
-          minimizePopup={this.minimizePopup}
-        />
       </div>
     );
   }

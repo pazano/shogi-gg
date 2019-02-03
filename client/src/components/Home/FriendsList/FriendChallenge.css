@@ -29,24 +29,21 @@ dark blue: 14151b
 }
 
 .friends__container {
-  display: inline-block;
-  width: 100%;
-  max-width: 300px;
-  margin-bottom: 40px;
-  background-color: #485562;
+  margin-top: 8px;
+  width: 240px;
+  background: rgba(255, 255, 255, 0.2);
   border: solid 1px rgba(20, 21, 27, 0.8);
-  padding: 8px;
   box-shadow: 0px 0px 10px 0px rgba(20, 21, 27, 0.6);
 }
 
 .friends__header {
   background: #333;
-  margin: -8px -8px 8px -8px;
-  padding: 8px;
 }
 
 .friends__header h3 {
-  font-size: 24px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 32px;
   text-transform: uppercase;
   color: #fff;
   text-shadow: 1px 1px 2px #000;
@@ -56,13 +53,14 @@ dark blue: 14151b
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 40px;
   padding-bottom: 5px;
   border-bottom: solid 1px rgba(255,255,255,0.2);
   box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.4);
 }
 .friends__list-username {
   margin-left: 16px;
+  line-height: 40px;
   font-family: 'Oswald';
   text-transform: uppercase;
   font-size: 18px;
@@ -75,11 +73,16 @@ dark blue: 14151b
 }
 
 .friends__challenge {
-  width: 40px;
+  width: 30px;
+  margin-top: 6px;
 }
 .friends__challenge-pending {
-  width: 40px;
+  width: 26px;
   margin-top: -10px;
+}
+
+.friends__challenge-pending span {
+  color: #14151b;
 }
 
 .friends__challenge-accept {
@@ -89,9 +92,7 @@ dark blue: 14151b
   justify-content: center;
   width: 70px;
 }
-.friends__challenge-pending span {
-  color: #14151b;
-}
+
 .friends__challenge-accept span {
   color: #fff;
 }
@@ -134,13 +135,11 @@ dark blue: 14151b
 }
 
 .friends__list-action {
-  width: 40px;
-  height: 40px;
+  width: 36px;
   transition: all 0.4s ease;
+  margin-top: -4px;
 }
 .friends__list-message {
-  width: 16px;
-  height: 16px;
   margin-bottom: -9px;
   margin-left: 8px;
 }
