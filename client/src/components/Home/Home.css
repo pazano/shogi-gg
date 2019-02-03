@@ -1,5 +1,12 @@
 body {
   margin: 0px;
+  font-family: 'Oswald';
+  color: #eee;
+}
+
+h1, h2, h3 {
+  margin: 0px;
+  padding: 0px;
 }
 
 button {
@@ -13,21 +20,25 @@ button {
   background: #333;
 }
 
-.home-container {
+.dashboard {
+  background-color: #485562;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+}
+
+.dashboard__content {
+  height: 100%;
+  overflow: hidden;
   background-color: #485562;
 }
 
-.home-components {
-  width: 100vw;
-  height: 100%;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr 3fr 1fr;
-  margin: 0 auto;
-  top: 100px;
-  position: absolute;
-  overflow: scroll;
-  background-color: #485562;
+.dashboard__user-panel {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 }
 
 .match_lists {
@@ -52,23 +63,34 @@ button {
   background: radial-gradient(#eee,#fff);
 }
 
-.match-container {
+.dashboard__content-header {
+  z-index: 2;
+  height: 80px;
+}
+
+.dashboard__content-modules {
   display: flex;
   flex-flow: column nowrap;
-  /* grid-template-rows: 5fr 50px 5fr; */
-  background: linear-gradient(#eee, #ddd);
-  /* overflow: hidden; */
-  margin-bottom: 40px;
+  align-content: center;
+  padding: 8px;
 }
 
-.divider {
-  background-color: #485562;
-  min-height: 40px;
-}
-
-.nav-container {
-  position: fixed;
+.dashboard__section-header {
+  height: 32px;
   width: 100%;
-  z-index: 2;
-  height: 100px;
+  background-image: radial-gradient(
+    circle at center left,
+    #f15a4a,
+    transparent 60%
+  );
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.dashboard__section-header h3 {
+  font-size: 18px;
+  line-height: 32px;
+  padding-left: 8px;
+  text-transform: uppercase;
+  color: #eee;
+  text-shadow: 1px 1px 2px #14151b;
 }

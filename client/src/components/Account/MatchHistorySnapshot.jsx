@@ -29,22 +29,22 @@ class MatchHistorySnapshot extends Component {
       match.outcome = match.winner == id ? 1 : 0;
       match.status != 0 && history.push(match);
     }
-    history = history.length > 4 ? history.slice(0, 5) : []; 
+    // history = history.length > 4 ? history.slice(0, 5) : [];
     let winCount = 0;
     history.forEach(match => winCount += match.outcome)
     let percent = 20 * winCount
     this.setState({ percentage: percent });
   }
 
-  //change the sqSize to resize 
+  //change the sqSize to resize
   render() {
     return (
         <div className="match-snapshot-container">
-        Winrate past 5 games
           <CircularProgressBar
-            strokeWidth="7"
-            sqSize="50"
-            percentage={this.state.percentage}/>
+            strokeWidth="30"
+            sqSize="140"
+            percentage={this.state.percentage}
+          />
         </div>
     );
   }

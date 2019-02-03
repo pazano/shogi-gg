@@ -3,15 +3,42 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(#14151b, #485562);
   height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.topnav__logo {
+  width: 240px;
+  padding-left: 16px;
+  padding-top: 8px;
+}
+.topnav__play {
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.topnav__play button {
+  width: 175px;
+  height: 44px;
+  margin: 8px;
+  font-size: 16px;
+}
+
+.topnav__user {
+  width: 240px;
+  background: rgba(255, 255, 255, 0.2);
+  border: solid 1px rgba(20, 21, 27, 0.8);
+  box-shadow: 0px 0px 10px 0px rgba(20, 21, 27, 0.6);
 }
 
 .logo {
   float: left;
   border-right: none;
   max-height: 100px;
-  width: 280px;
+  width: 200px;
   padding: 16px;
   cursor: pointer;
 }
@@ -20,34 +47,28 @@
   background-color: transparent;
 }
 
-.nav a {
-  float: right;
-  flex: 1;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 25px;
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 60px;
-  font-weight: 400;
-  font-family: Oswald;
-}
-
-.avi {
-  float: right;
-  width: 50px;
-  color: white;
-  padding: 30px 10px;
-}
 
 @media screen and (max-width: 600px) {
-  .avi {
-    visibility: hidden;
-    display: none;
-  }
+
 }
 
-li a:hover {
-  background-color: #6a6969;
+
+.open_matches {
+  display: grid;
+  text-align: center;
+  background-color: #485562;
+  height: 100%;
+}
+
+.match_actions {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.match_actions button {
+  width: 180px;
+  height: 54px;
+  font-size: 21px;
+  font-family: "Oswald";
 }

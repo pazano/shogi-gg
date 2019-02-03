@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
-import randomstring from "randomstring";
 import io from "socket.io-client/dist/socket.io.js";
 
-import HomeChat from "./Chat/index.jsx";
-import OpenMatches from "./OpenMatches/index.jsx";
-import PrevMatches from "./PrevMatches/index.jsx";
-import FriendChallenge from "./FriendChallenge/index.jsx";
-import Leaderboard from "./Leaderboard/index.jsx";
+import MatchList from "./MatchList/index.jsx";
+import Competitive from "./Competitive/Competitive.jsx"
+import FriendsList from "./FriendsList/index.jsx";
 import Nav from "../Global/Nav/Nav.jsx";
+import UserTile from "../Global/UserTile/UserTile.jsx"
 import ChatPopup from "./Chat/popup.jsx";
 
 import "./Home.css";
@@ -43,8 +40,7 @@ class Home extends Component {
   }
 
   logout = () => {
-    window.localStorage.clear();
-    // this.socket.close();
+    localStorage.clear();
     this.props.history.push("/login");
   };
 
@@ -77,41 +73,35 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="home-container">
-        <div className="nav-container">
-          <Nav socket={this.socket} />
-        </div>
-        <div className="home-components">
-          <div className="divider" />
-          <div className="match-container">
-            <div className="match_lists">
-              <OpenMatches history={this.props.history} socket={this.socket} />
-              <PrevMatches history={this.props.history} socket={this.socket} />
-            </div>
-            <div className="divider" />
-            <Leaderboard history={this.props.history} socket={this.socket} />
+      <div className="dashboard">
+        <div className="dashboard__content">
+          <div className="dashboard__content-header">
+            <Nav history={this.props.history} socket={this.socket} />
           </div>
-          <div className="divider" />
-          <FriendChallenge
+          <div className="dashboard__content-modules">
+            <MatchList history={this.props.history} socket={this.socket} />
+            <Competitive />
+          </div>
+          <ChatPopup
+            socket={this.socket}
+            activePopups={this.state.activePopups}
+            removeActivePopup={this.removeActivePopup}
+            minimizePopup={this.minimizePopup}
+          />
+        </div>
+        <div className="dashboard__user-panel">
+          <UserTile
+            socket={this.socket}
+          />
+          <FriendsList
             history={this.props.history}
             socket={this.socket}
             showActivePopups={this.showActivePopups}
           />
-          <div className="divider" />
         </div>
-        <ChatPopup
-          socket={this.socket}
-          activePopups={this.state.activePopups}
-          removeActivePopup={this.removeActivePopup}
-          minimizePopup={this.minimizePopup}
-        />
       </div>
     );
   }
 }
 
 export default Home;
-
-// <div className="chat">
-//   <HomeChat socket={this.socket} />
-// </div>

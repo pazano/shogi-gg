@@ -2,11 +2,26 @@ import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
 
-import "./PrevMatches.css";
+import "./MatchList.css";
 
 const { REST_SERVER_URL } = process.env;
 
-class PrevMatches extends Component {
+const matchTypes = [
+  {
+    label: "Quick Match",
+    style: "quick-match"
+  },
+  {
+    label: "Ranked",
+    style: "ranked-match"
+  },
+  {
+    label: "Friendly",
+    style: "friend-match"
+  }
+]
+
+class MatchList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -116,29 +131,37 @@ class PrevMatches extends Component {
 
   render() {
     return (
-      <div className="prev_match_container">
-        <div className="prev_match_head">REJOIN MATCH</div>
-        <div className="prev_match_select">
+      <div>
+        <div className="dashboard__section-header">
+          <h3>Open Matches</h3>
+        </div>
+        <div className="dashboard__match-list">
           {this.state.prevMatches.map(match => {
             return (
               <div
                 onClick={() => this.handleMatchSelect(match)}
                 key={match.id}
-                className={`prev_match_items  ${
-                  match.turn === "YOUR MOVE" ? "prev_match_move" : "awaiting"
+                className={`dashboard__match-item  ${
+                  matchTypes[match.type].style
                 }`}
               >
-                <div className="prev_match_vs">Opponent: </div>
-                <div className="prev_match_opponent">
+                <div className="match-item__type">
+                  { matchTypes[match.type].label }
+                </div>
+                <div className="match-item__opponent">
                   {`${
                     match.blackName === this.state.username
                       ? match.whiteName
                       : match.blackName
                   }`}
                 </div>
-
-                <div className="prev_match_time">
-                  {moment(match.modified).fromNow()}
+                <div className="match-item__details">
+                  <div className="match-item__total-turns">
+                    {match.event_log ? `Turn: ${match.event_log.length}` : 'New'}
+                  </div>
+                  <div className="match-item__last-move">
+                    {moment(match.modified).fromNow()}
+                  </div>
                 </div>
               </div>
             );
@@ -149,8 +172,4 @@ class PrevMatches extends Component {
   }
 }
 
-export default PrevMatches;
-
-// <div className="prev_match_turn">
-//   {match.turn === "YOUR MOVE" ? "YOUR MOVE" : null}
-// </div>
+export default MatchList;
