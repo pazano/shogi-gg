@@ -5,7 +5,7 @@ class Protected extends Component {
   componentDidMount() {
     try {
       const { exp } = jwtDecode(localStorage.token);
-      if (exp < Math.floor(Date.now() / 1000)) {
+      if (exp < Date.now()) {
         this.props.history.push('/login');
         localStorage.clear();
       }
