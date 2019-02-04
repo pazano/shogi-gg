@@ -80,7 +80,7 @@ button {
   width: 100%;
   background-image: radial-gradient(
     circle at center left,
-    #f15a4a,
+    #333333,
     transparent 60%
   );
   margin-top: 8px;
