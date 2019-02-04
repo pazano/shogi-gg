@@ -7,7 +7,7 @@ export const generateToken = (id, username) => {
 
   token.accessToken = sign(
     {
-      exp: Math.floor(Date.now() / 1000) + (60 * 60),
+      exp: Date.now() + (1000 * 60 * 60 * 24 * 14),
       username,
       id,
     },
