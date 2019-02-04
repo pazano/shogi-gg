@@ -145,8 +145,15 @@ class MatchList extends Component {
                   matchTypes[match.type].style
                 }`}
               >
-                <div className="match-item__type">
-                  { matchTypes[match.type].label }
+                <div className="match-item__details">
+                  <div className="match-item__type">
+                    { matchTypes[match.type].label }
+                  </div>
+                  <div className={`match-item__current-turn
+                    ${match.turn == 'YOUR MOVE' ? 'active-turn' : 'inactive-turn'}
+                  `}>
+                    {match.turn == 'YOUR MOVE' ? 'Your Turn' : ''}
+                  </div>
                 </div>
                 <div className="match-item__opponent">
                   {`${
