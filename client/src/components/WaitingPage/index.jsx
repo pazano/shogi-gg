@@ -50,7 +50,7 @@ class WaitingPage extends Component {
   async handleCancelMatchclick() {
     this.socket.emit("client.leaveQueue", { userId: this.userId, ranked: this.ranked });
     this.socket.close();
-    this.props.history.replace("/home");
+    this.props.history.replace("/dashboard");
   }
 
   render() {

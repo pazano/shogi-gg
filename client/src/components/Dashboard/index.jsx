@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import io from "socket.io-client/dist/socket.io.js";
 
+import UserPanel from "./UserPanel/UserPanel.jsx";
 import MatchList from "./MatchList/index.jsx";
-import Competitive from "./Competitive/Competitive.jsx"
-import FriendsList from "./FriendsList/index.jsx";
 import Nav from "../Global/Nav/Nav.jsx";
-import UserTile from "../Global/UserTile/UserTile.jsx"
 import ChatPopup from "./Chat/popup.jsx";
 
-import "./Home.css";
+import "./Dashboard.css";
 
 const { SOCKET_SERVER_URL } = process.env;
 
@@ -80,7 +78,6 @@ class Home extends Component {
           </div>
           <div className="dashboard__content-modules">
             <MatchList history={this.props.history} socket={this.socket} />
-            <Competitive />
           </div>
           <ChatPopup
             socket={this.socket}
@@ -89,16 +86,11 @@ class Home extends Component {
             minimizePopup={this.minimizePopup}
           />
         </div>
-        <div className="dashboard__user-panel">
-          <UserTile
-            socket={this.socket}
-          />
-          <FriendsList
-            history={this.props.history}
-            socket={this.socket}
-            showActivePopups={this.showActivePopups}
-          />
-        </div>
+        <UserPanel
+          history={this.props.history}
+          socket={this.socket}
+          showActivePopups={this.showActivePopups}
+        />
       </div>
     );
   }

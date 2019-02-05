@@ -500,7 +500,7 @@ class Match extends Component {
   quit = () => {
     this.socket.close();
     this.props.history.replace({
-      pathname: `/home`,
+      pathname: `/dashboard`,
       history: this.props.history
     });
   }

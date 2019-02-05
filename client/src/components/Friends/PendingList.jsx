@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios"
 
 const {AVATAR_URL} = process.env;
 
