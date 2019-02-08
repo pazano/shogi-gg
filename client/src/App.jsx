@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFistRaised } from '@fortawesome/free-solid-svg-icons'
 
 import LandingPage from "./components/LandingPage/index.jsx";
 import Signup from "./components/Auth/Signup.jsx";
@@ -9,6 +11,8 @@ import Protected from "./components/Global/Protected.jsx";
 import Account from "./components/Account/index.jsx";
 import BoardIndex from "./components/Match/index.jsx";
 import WaitingPage from "./components/WaitingPage/index.jsx";
+
+library.add(faFistRaised);
 
 class App extends Component {
   constructor() {
