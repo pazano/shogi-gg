@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import randomstring from 'randomstring';
 import UserPanel from '../../../../../lib/UserPanel';
 import ChallengeList from '../ChallengeList/ChallengeList.jsx';
+import InviteList from '../InviteList/InviteList.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './FriendsList.css';
@@ -87,20 +87,11 @@ class FriendsList extends Component {
   }
 
   fetchFriends = async (userId = this.id) => {
-    const { data } = await axios.get(
-      `${REST_SERVER_URL}/api/friends/fetchFriends/${userId}`,
-      {
-        headers: { "Content-Type": "application/json" }
-      }
-    );
-    const friends = data.filter(friend => friend.status === 1);
-    const friendNames = friends.reduce((labels, friend) => {
-      labels[friend.id] = friend.username;
-      return labels;
-    }, {});
+    const { friends, invites, names } = await UserPanel.getUserFriendList(userId);
     this.setState({
       friends,
-      friendNames
+      invites,
+      friendNames: names
     });
   };
 
@@ -173,6 +164,10 @@ class FriendsList extends Component {
             />
           ))}
         </div>
+        <InviteList
+          names={this.state.friendNames}
+          invites={this.state.invites}
+        />
       </div>
     );
   }

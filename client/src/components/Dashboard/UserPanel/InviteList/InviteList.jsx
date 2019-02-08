@@ -3,16 +3,16 @@ import React from 'react';
 const InviteTile = ({ invite }) => {
   return (
     <div>
-      Invite
+      {invite.username}
     </div>
   )
 }
 
 const InviteList = ({ invites }) => {
-  if (invites && invites.length) {
+  if (invites && Object.keys(invites).length) {
     return (
       <div>
-        {invites.map(invite => <InviteTile />)}
+        {invites.map(invite => <InviteTile invite={invite} key={`inv-${invite.id}-${invite.username}`} />)}
       </div>
     )
   } else {

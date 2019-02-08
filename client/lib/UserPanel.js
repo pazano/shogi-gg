@@ -11,11 +11,20 @@ const getUserFriendList = async (userId) => {
       headers: { "Content-Type": "application/json" }
     }
   );
-  // todo... what is returned here?
-  const friends = data.filter(
-      friend => friend.id !== userId && friend.status === 1
-    );
-  return friends;
+  const friends = [];
+  const invites = [];
+  const names = {};
+  data.forEach(friend => {
+    if (friend.id !== userId) {
+      friend.status === 1 ? friends.push(friend) : invites.push(friend)
+    }
+    names[friend.id] = friend.username;
+  });
+  return {
+    friends,
+    invites,
+    names
+  }
 }
 
 // Open Challenges
