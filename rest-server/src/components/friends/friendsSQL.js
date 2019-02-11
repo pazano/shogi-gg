@@ -1,42 +1,45 @@
+  /*
+  An update to either record updates both records
+  getFriends is simplified, can always use current user as u_id
+  updateFriend and deleteFriend use friendKey to tie together both records
+*/
+
+const buildFriendKey = (u_id, f_id) => u_id < f_id ? u_id + f_id : f_id + u_id;
+
 export const addFriendHelper = ({ u_id, f_id, status = 0}) => {
-  const friend_key = u_id + f_id;
+  const friendKey = buildFriendKey(u_id, f_id);
   return `
-    INSERT INTO friends (u_id, f_id, status, friend_key)
-    VALUES (${u_id}, ${f_id}, ${status}, ${friend_key})
-    RETURNING u_id, f_id, status, friend_key
+    INSERT INTO friends (u_id, f_id, status, friend_key, initiated_by)
+    VALUES (${u_id}, ${f_id}, ${status}, ${friendKey}, ${u_id}), (${f_id}, ${u_id}, ${status}, ${friendKey}, ${u_id})
+    RETURNING id, u_id, f_id, status, friend_key
   `;
 };
 
 export const fetchAllFriendsHelper = ({ u_id }) => {
   return `
-    SELECT u.id, u.email, u.username, u.wins, u.losses, u.avatar, f.status, f.u_id
+    SELECT u.id, u.email, u.username, u.wins, u.losses, u.avatar, f.status, f.initiated_by
     FROM users AS u
-      INNER JOIN friends AS f
-      ON (u.id=f.f_id)
-      WHERE (f.u_id=${u_id} OR (u.id=${u_id} AND f.status=0))
+    JOIN friends AS f
+    ON (u.id=f.f_id)
+    WHERE (f.u_id=${u_id})
   `;
 };
 
 export const delFriendHelper = ({ u_id, f_id }) => {
+  const friendKey = buildFriendKey(u_id, f_id);
   return `
     DELETE FROM friends
-    WHERE u_id in(${u_id}, ${f_id})
-    AND f_id in(${u_id}, ${f_id})
-    RETURNING u_id, f_id
+    WHERE friendKey=${friendKey}
+    RETURNING id
   `;
 }
 
 export const updateFriendHelper = ({ u_id, f_id, status }) => {
+  const friendKey = buildFriendKey(u_id, f_id);
   return `
     UPDATE friends
     SET status=${status}
-    WHERE u_id in(${u_id}, ${f_id})
-    AND f_id in(${u_id}, ${f_id})
-    RETURNING u_id, f_id, status
+    WHERE friendKey=${friendKey}
+    RETURNING id, u_id, f_id, status
   `;
 }
-//ocheyos
-//WHERE ((f.u_id=${u_id} AND f.status=1) OR (u.id=${u_id} AND f.status=0))
-
-//raymonds
-//WHERE (f.u_id=${u_id} OR u.id=${u_id})

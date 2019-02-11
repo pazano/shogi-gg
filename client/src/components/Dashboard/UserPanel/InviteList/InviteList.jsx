@@ -1,18 +1,23 @@
 import React from 'react';
 
-const InviteTile = ({ invite }) => {
-  return (
-    <div>
-      {invite.username}
-    </div>
-  )
-}
-
-const InviteList = ({ invites }) => {
+const InviteList = ({ invites, names, accept, reject }) => {
   if (invites && Object.keys(invites).length) {
     return (
       <div>
-        {invites.map(invite => <InviteTile invite={invite} key={`inv-${invite.id}-${invite.username}`} />)}
+        <div className="friends__header">
+          <h3>Invites ({invites.length})</h3>
+        </div>
+        {invites.map(invite =>
+          <div className="friends__challenge-tile">
+            <div className="friends__challenge-tile__user">
+              {names[invite.initiated_by]}
+            </div>
+            <div>
+              <button></button>
+              <button></button>
+            </div>
+          </div>
+          )}
       </div>
     )
   } else {

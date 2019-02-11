@@ -11,12 +11,15 @@ const getUserFriendList = async (userId) => {
       headers: { "Content-Type": "application/json" }
     }
   );
+  console.warn('FQ')
+  console.log(data);
   const friends = [];
   const invites = [];
   const names = {};
   data.forEach(friend => {
     if (friend.id !== userId) {
-      friend.status === 1 ? friends.push(friend) : invites.push(friend)
+      if (friend.status === 1) friends.push(friend);
+      if (friend.status === 0 && friend.initiated_by !== userId) invites.push(friend);
     }
     names[friend.id] = friend.username;
   });
