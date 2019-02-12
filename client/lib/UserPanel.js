@@ -1,18 +1,13 @@
 import axios from 'axios';
 
 const { REST_SERVER_URL } = process.env;
+const REQUEST_HEADER = { "Content-Type": "application/json" };
 
 // Friends List
 const getUserFriendList = async (userId) => {
-  // todo... rewrite backend controller / query
   const { data } = await axios.get(
-    `${REST_SERVER_URL}/api/friends/fetchFriends/${userId}`,
-    {
-      headers: { "Content-Type": "application/json" }
-    }
+    `${REST_SERVER_URL}/api/friends`, { params: { id: userId }, headers: REQUEST_HEADER}
   );
-  console.warn('FQ')
-  console.log(data);
   const friends = [];
   const invites = [];
   const names = {};
@@ -34,12 +29,7 @@ const getUserFriendList = async (userId) => {
 const getUserChallenges = async (userId) => {
   let { data } = await axios.get(
     `${REST_SERVER_URL}/api/openMatches`,
-    {
-      params: { id: userId }
-    },
-    {
-      headers: { "Content-Type": "application/json" }
-    }
+    { params: { id: userId }, headers: REQUEST_HEADER }
   );
   const challengeObject = {};
   Object.values(data).forEach(challenge => {
@@ -56,24 +46,58 @@ const getUserChallenges = async (userId) => {
 const deleteChallenge = async (id) => {
   await axios.delete(
     `${REST_SERVER_URL}/api/openmatches`,
-    {
-      data: { id }
-    },
-    {
-      headers: { "Content-Type": "application/json" }
-    }
+    { data: { id },
+      headers: REQUEST_HEADER },
   );
 }
 
+const userLookup = async (searchTerm) => {
+  try {
+    const { data } = await axios.get(
+      `${REST_SERVER_URL}/api/friends/search/`,
+      { params: { searchTerm }, headers: REQUEST_HEADER }
+    );
+    return data;
+  } catch(e) {
+    console.warn('Search Error');
+    return false;
+  }
+}
+
+const createFriendInvite = async (userId, friendsName) => {
+
+}
+
 // Open Invitations
-const getUserInvitations = async (userId) => {
+const acceptFriendInvite = async (friendKey) => {
+  try {
+    const { data } = await axios.put(
+      `${REST_SERVER_URL}/api/friends/`,
+      { friendKey, status: 1 }, { headers: REQUEST_HEADER }
+    );
+    return data;
+  } catch (e) {
+    return false;
+  }
+}
 
-
+const rejectFriendInvite = async (friendKey) => {
+  try {
+    const { data } = await axios.delete(
+      `${REST_SERVER_URL}/api/friends/`,
+      { data: { friendKey }, headers: REQUEST_HEADER }
+    );
+    return data;
+  } catch(e) {
+    return false;
+  }
 }
 
 export default {
   getUserFriendList,
   getUserChallenges,
   deleteChallenge,
-  getUserInvitations
+  acceptFriendInvite,
+  rejectFriendInvite,
+  userLookup
 }

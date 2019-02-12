@@ -1,18 +1,17 @@
 import express from "express";
-import { addFriendController, fetchFriendController, delFriendController, updateFriendController } from "./friendsControllers";
+import { friendCtrl } from "./friendsControllers";
 
 const router = express.Router();
 
-router.route("/add")
-  .post(addFriendController);
+router
+  .route("/")
+  .get(friendCtrl.get)
+  .post(friendCtrl.add)
+  .put(friendCtrl.update)
+  .delete(friendCtrl.delete)
 
-router.route("/fetchFriends/:u_id/")
-  .get(fetchFriendController);
-
-router.route("/deleteFriend/:u_id/:f_id")
-  .delete(delFriendController);
-
-router.route("/:u_id/:f_id/:status")
-  .put(updateFriendController);
+router
+  .route("/search/")
+  .get(friendCtrl.search)
 
 export default router;

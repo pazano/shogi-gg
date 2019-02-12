@@ -11,6 +11,7 @@ h1, h2, h3, h4, h5 { font-family: 'Oswald' }
 strong { font-weight: 700; }
 
 .friend-container {
+  background-color: #485562;
   display: inline-block;
   vertical-align: top;
   min-width: 500px;
@@ -39,7 +40,7 @@ strong { font-weight: 700; }
 }
 
 .friend-search {
-  float: right; 
+  float: right;
   display: inline;
 }
 

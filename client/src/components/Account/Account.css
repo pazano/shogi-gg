@@ -11,7 +11,7 @@ h1, h2, h3, h4, h5 { font-family: 'Oswald' }
 strong { font-weight: 700; }
 
 .acct-container {
-  background: linear-gradient( #eee, #fff);
+  background-color: #485562;
 }
 
 .acct-router-container {
@@ -21,8 +21,8 @@ strong { font-weight: 700; }
   width: 100%;
 }
 
-/* 
-  radial-gradient(#fff, #eee); 
+/*
+  radial-gradient(#fff, #eee);
   radial-gradient(#d0c7af, #fff);
   radial-gradient(#fff, #d0c7af);
 */

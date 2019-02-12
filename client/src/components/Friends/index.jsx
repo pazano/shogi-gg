@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FriendsList } from './FriendsList.jsx';
 import { PendingList } from './PendingList.jsx';
-import { AwaitingList } from './AwaitingList.jsx';
+import UserPanel from '../../../lib/UserPanel.js';
 
 import './Friends.css';
 
 const {REST_SERVER_URL} = process.env;
+const REQUEST_HEADER = { "Content-Type": "application/json" };
 
 class Friends extends Component {
   constructor() {
     super();
     this.state = {
-      friends: [],
-      pending: [],
-      awaiting: [],
+      currentUser: +localStorage.getItem('id'),
+      searchTerm: '',
+      results: [],
     };
   }
 
-  componentDidMount() {
-    this.fetchFriends();
+  userLookup = async (e) => {
+    e.preventDefault();
+    if (this.state.searchTerm && this.state.searchTerm.length > 3) {
+      const results = await UserPanel.userLookup(this.state.searchTerm);
+      this.setState({
+        results
+      });
+    }
   }
-  
+
   addFriend = (e) => {
     e.preventDefault(); //Without this line 2nd axios call breaks
     const { username } = this.state;
@@ -32,7 +38,7 @@ class Friends extends Component {
           u_id: id,
           f_id: res.data.id.toString(),
         }
-        axios.post(`${REST_SERVER_URL}/api/friends/add`, body)
+        axios.post(`${REST_SERVER_URL}/api/friends/`, body)
           .then(data => {
             this.refs.search.value = '';
             this.fetchFriends();
@@ -51,12 +57,8 @@ class Friends extends Component {
     this.setState({ [name]: value });
   }
 
-  fetchFriends = async () => {
-    const id = localStorage.getItem("id");
-    const flist = [];
-    const pending = [];
-    const awaiting = [];
-    const {data} = await axios.get(`${REST_SERVER_URL}/api/friends/fetchFriends/${id}`);
+  fetchFriends = async (userId = this.state.currentUser) => {
+    const { friends } = UserPanel.getUserFriendList(userId);
     for(let friend of data) {
       const fid = friend.u_id;
       const user = await axios.get(`${REST_SERVER_URL}/api/users/${fid}`);
@@ -66,7 +68,6 @@ class Friends extends Component {
       if(friend.status == 0 && friend.u_id == id) awaiting.push(friend)
       if(friend.status == 0 && friend.u_id != id) pending.push(friend)
       if(friend.status == 1 && friend.id != id) flist.push(friend)
-      if(friend.status == 2) this.deleteFriend(friend)
     }
     this.setState({ friends: flist });
     this.setState({ pending: pending });
@@ -107,54 +108,27 @@ class Friends extends Component {
   }
 
   render() {
-    const awaiting = this.state.awaiting.length > 0 && (
-      <div className="awaiting-container">
-        <div className="friend-title">Awaiting Response</div>
-        <div>
-        {this.state.awaiting.map((user, index) => (
-          <AwaitingList
-            key={index}
-            user={user}
-          />
-        ))}
-        </div>
-        </div>
-    )
-    const pending = this.state.pending.length > 0 && (
+    const results = this.state.results.length > 0 && (
       <div className="pending-container">
-        <div className="friend-title">Pending Requests</div>
+        <div className="friend-title">Results</div>
         <div>
-        {this.state.pending.map((user, index) => (
-          <PendingList
-            key={index}
-            user={user}
-            acceptFriend={this.acceptFriend.bind(this)}
-            rejectFriend={this.rejectFriend.bind(this)}
-          />
+        {this.state.results.map((user) => (
+          <div key={`sr-${user.id}-${user.username}`}>{user.username}</div>
         ))}
         </div>
-        </div>
+      </div>
     )
     return (
       <div className="friend-container">
         <div className="friend-top">
           <div className="friend-head">Friends List</div>
           <form className="friend-search">
-            <input ref="search" name="username" type="text" placeholder="Username" className="friend-form" onChange={this.handleInput} />
-            <button type="submit" className="friend-button" onClick={(e) => this.addFriend(e)}>Search</ button>
+            <input ref="search" name="searchTerm" type="text" placeholder="Username" className="friend-form" onChange={this.handleInput} />
+            <button type="submit" className="friend-button" onClick={(e) => this.userLookup(e)}>Search</ button>
           </ form>
         </ div>
         <div className="friend-list-container">
-        <div className="friend-title">Current</div>
-        {this.state.friends.map((user, index) => (
-          <FriendsList
-            key={index}
-            user={user}
-            deleteFriend={this.deleteFriend.bind(this)}
-          />
-        ))}
-        {pending}
-        {awaiting}
+          {results}
         </div>
       </div>
     )

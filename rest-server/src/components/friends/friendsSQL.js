@@ -15,18 +15,17 @@ export const addFriendHelper = ({ u_id, f_id, status = 0}) => {
   `;
 };
 
-export const fetchAllFriendsHelper = ({ u_id }) => {
+export const fetchAllFriendsHelper = (userId) => {
   return `
-    SELECT u.id, u.email, u.username, u.wins, u.losses, u.avatar, f.status, f.initiated_by
+    SELECT u.id, u.email, u.username, u.wins, u.losses, u.avatar, f.status, f.initiated_by, f.friend_key
     FROM users AS u
     JOIN friends AS f
     ON (u.id=f.f_id)
-    WHERE (f.u_id=${u_id})
+    WHERE (f.u_id=${userId})
   `;
 };
 
-export const delFriendHelper = ({ u_id, f_id }) => {
-  const friendKey = buildFriendKey(u_id, f_id);
+export const delFriendHelper = (friendKey) => {
   return `
     DELETE FROM friends
     WHERE friendKey=${friendKey}
@@ -34,12 +33,20 @@ export const delFriendHelper = ({ u_id, f_id }) => {
   `;
 }
 
-export const updateFriendHelper = ({ u_id, f_id, status }) => {
-  const friendKey = buildFriendKey(u_id, f_id);
+export const updateFriendHelper = (friendKey, status) => {
+  console.log(`friendKey: ${friendKey}`)
   return `
     UPDATE friends
     SET status=${status}
-    WHERE friendKey=${friendKey}
-    RETURNING id, u_id, f_id, status
+    WHERE friend_key=${friendKey}
+    RETURNING id, u_id, f_id, status, friend_key
   `;
+}
+
+export const searchFriendHelper = (searchTerm) => {
+  return `
+    SELECT id, email, username, avatar
+    FROM users
+    WHERE username LIKE '${searchTerm}%'
+  `
 }

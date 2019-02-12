@@ -4,7 +4,7 @@ import './ChallengeList.css';
 const ChallengeOption = ({ challenge, accept, reject }) => {
     const challengeValue = JSON.stringify(challenge);
     return (
-      <div className="friends__challenge-tile__actions">
+      <div className="friends__choice-tile__actions">
         { challenge.type === 'FROM' ? <button value={challengeValue} onClick={e => accept(e)}>&#10004;</button> : <div></div> }
         <button value={challengeValue} onClick={e => reject(e)}>X</button>
       </div>
@@ -13,11 +13,11 @@ const ChallengeOption = ({ challenge, accept, reject }) => {
 
 const ChallengeTile = ({ challenge, accept, reject, names }) => {
   return (
-    <div className="friends__challenge-tile">
-      <div className="friends__challenge-tile__type">
+    <div className="friends__choice-tile">
+      <div className="friends__choice-tile__type">
         {challenge.type}
       </div>
-      <div className="friends__challenge-tile__user">
+      <div className="friends__choice-tile__user">
         {`${challenge.type === 'TO' ? names[challenge.toUser] : names[challenge.fromUser]}`}
       </div>
       <ChallengeOption

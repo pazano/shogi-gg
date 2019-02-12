@@ -40,7 +40,6 @@ class FriendsList extends Component {
       challengedUsers: {},
       activePopups: []
     };
-    this.handleChallengeFriendClick = this.handleChallengeFriendClick.bind(this);
   }
 
   async componentDidMount() {
@@ -112,7 +111,7 @@ class FriendsList extends Component {
       }));
   }
 
-  handleChallengeFriendClick = async (friend) => {
+  sendChallenge = async (friend) => {
     const player1 = this.id;
     const player2 = friend.id
     const player1Name = this.username;
@@ -125,7 +124,7 @@ class FriendsList extends Component {
     });
   }
 
-  handleAcceptChallengeClick = async (e) => {
+  acceptChallenge = async (e) => {
     const matchId = randomstring.generate();
     const { id, fromUser, toUser } = JSON.parse(e.target.value);
     await UserPanel.deleteChallenge(id);
@@ -137,10 +136,17 @@ class FriendsList extends Component {
     });
   }
 
-  handleRejectChallengeClick = async (e) => {
+  rejectChallenge = async (e) => {
     let { id } = JSON.parse(e.target.value);
     await UserPanel.deleteChallenge(id);
     this.props.socket.emit("client.rejectChallenge", { id });
+  }
+
+  acceptFriendInvite = async (e) => {
+    const friendKey = e.target.value;
+    const data = await UserPanel.acceptFriendInvite(friendKey);
+    if (data) this.fetchFriends();
+    // TODO:  Socket event for friend event
   }
 
   render() {
@@ -149,8 +155,8 @@ class FriendsList extends Component {
         <ChallengeList
           names={this.state.friendNames}
           challenges={this.state.challenges}
-          accept={this.handleAcceptChallengeClick}
-          reject={this.handleRejectChallengeClick}
+          accept={this.acceptChallenge}
+          reject={this.rejectChallenge}
           />
         <div className="friends__header"><h3>Friends</h3></div>
         <div className="friends__list">
@@ -159,14 +165,15 @@ class FriendsList extends Component {
               friend={friend}
               challengedUsers={this.state.challengedUsers}
               invokeChat={this.props.showActivePopups}
-              sendChallenge={this.handleChallengeFriendClick}
+              sendChallenge={this.sendChallenge}
               key={`fl-${friend.id}`}
             />
           ))}
         </div>
         <InviteList
-          names={this.state.friendNames}
           invites={this.state.invites}
+          names={this.state.friendNames}
+          accept={this.acceptFriendInvite}
         />
       </div>
     );

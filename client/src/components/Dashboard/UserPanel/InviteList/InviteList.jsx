@@ -8,13 +8,13 @@ const InviteList = ({ invites, names, accept, reject }) => {
           <h3>Invites ({invites.length})</h3>
         </div>
         {invites.map(invite =>
-          <div className="friends__challenge-tile">
-            <div className="friends__challenge-tile__user">
+          <div className="friends__choice-tile" key={`invite-${invite.id}`}>
+            <div className="friends__choice-tile__user">
               {names[invite.initiated_by]}
             </div>
-            <div>
-              <button></button>
-              <button></button>
+            <div className="friends__choice-tile__actions">
+              <button value={invite.friend_key} onClick={e => accept(e)}>&#10004;</button>
+              <button value={invite.friend_key} onClick={e => reject(e)}>X</button>
             </div>
           </div>
           )}
