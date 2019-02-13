@@ -1,0 +1,35 @@
+.friends__choice-tile {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 40px;
+  background-image:  linear-gradient(transparent, 50%, rgba(255,255,255, 0.3));
+  font-family: 'Oswald';
+  padding-left: 8px;
+}
+
+.friends__choice-tile__type {
+  flex: 1;
+  font-size: 12px;
+  line-height: 40px;
+  padding-left: 8px;
+}
+
+.friends__choice-tile__user {
+  flex: 2;
+  font-size: 16px;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+.friends__choice-tile__actions {
+  flex: 2;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+.friends__choice-tile__actions button {
+  width: 30px;
+  height: 30px;
+  margin: 4px;
+}

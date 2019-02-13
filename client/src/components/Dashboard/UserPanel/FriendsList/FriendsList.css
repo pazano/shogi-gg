@@ -8,25 +8,6 @@ mid blue: 2c343f
 dark blue: 14151b
 */
 
-.friend-challenge {
-  width: 100%;
-}
-
-.challenge_items {
-  font-size: 15px;
-  font-weight: 600;
-  display: grid;
-  grid-template-columns: 10fr 50px 50px;
-  height: 45px;
-  padding: 4px;
-  background: linear-gradient(#eee, #ddd);
-  border-bottom: solid 1px #ccc;
-}
-
-.challenge_button {
-  cursor: pointer;
-  width: 100%;
-}
 
 .friends__container {
   margin-top: 8px;
@@ -52,9 +33,7 @@ dark blue: 14151b
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  justify-content: space-between;
   height: 40px;
-  padding-bottom: 5px;
   border-bottom: solid 1px rgba(255,255,255,0.2);
   box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.4);
 }
@@ -67,70 +46,27 @@ dark blue: 14151b
   color: #eee;
   text-shadow: 1px 1px 2px #14151b;
   cursor: pointer;
+  flex: 1;
 }
 .friends__list-username:hover {
   color: #fff;
 }
 
-.friends__challenge {
-  width: 30px;
-  margin-top: 6px;
-}
-.friends__challenge-pending {
-  width: 26px;
-  margin-top: -10px;
-}
-
-.friends__challenge-pending span {
-  color: #14151b;
-}
-
-.friends__challenge-accept {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  width: 70px;
-}
-
-.friends__challenge-accept span {
-  color: #fff;
-}
-.friends__challenge-accept span, .friends__challenge-pending span {
-  margin-top: -12px;
-  margin-bottom: 4px;
-  line-height: 12px;
-  font-size: 10px;
-}
-
-.friends__challenge-accept button {
-  width: 30px;
-  height: 30px;
-  margin: 4px;
-}
-
-.friends__challenge-accept-options {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-}
-
-.friends__challenge-icon-pending {
-  fill: #14151b;
-}
-.friends__challenge-icon-pending:hover {
-  cursor: pointer;
-  fill: #2c343f;
-}
-
 .friends__list-actions {
+  flex: 1;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-end;
+  padding-right: 8px;
 }
 .friends__list-actions > * {
+  margin: 4px;
+}
+
+.friends__list-actions__challenge {
+  width: 30px;
+  height: 30px;
   margin: 4px;
 }
 
@@ -163,6 +99,10 @@ dark blue: 14151b
   margin-left: 8px;
   width: 50px;
   height: 50px;
+}
+
+.friends__challenge {
+  flex: 1;
 }
 
 .friends__actions {

@@ -1,42 +1,52 @@
-export const addFriendHelper = ({ u_id, f_id, status = 0}) => {
-  const friend_key = u_id + f_id;
+  /*
+  An update to either record updates both records
+  getFriends is simplified, can always use current user as u_id
+  updateFriend and deleteFriend use friendKey to tie together both records
+*/
+
+const buildFriendKey = (u_id, f_id) => u_id < f_id ? '' + u_id + f_id : '' + f_id + u_id;
+
+export const addFriendHelper = (userId, friendId, status) => {
+  const friendKey = buildFriendKey(userId, friendId);
   return `
-    INSERT INTO friends (u_id, f_id, status, friend_key)
-    VALUES (${u_id}, ${f_id}, ${status}, ${friend_key})
-    RETURNING u_id, f_id, status, friend_key
+    INSERT INTO friends (u_id, f_id, status, friend_key, initiated_by)
+    VALUES (${userId}, ${friendId}, ${status}, ${friendKey}, ${userId}), (${friendId}, ${userId}, ${status}, ${friendKey}, ${userId})
+    RETURNING id, u_id, f_id, status, friend_key
   `;
 };
 
-export const fetchAllFriendsHelper = ({ u_id }) => {
+export const fetchAllFriendsHelper = (userId) => {
   return `
-    SELECT u.id, u.email, u.username, u.wins, u.losses, u.avatar, f.status, f.u_id
+    SELECT u.id, u.email, u.username, u.wins, u.losses, u.avatar, f.status, f.initiated_by, f.friend_key
     FROM users AS u
-      INNER JOIN friends AS f
-      ON (u.id=f.f_id)
-      WHERE (f.u_id=${u_id} OR (u.id=${u_id} AND f.status=0))
+    JOIN friends AS f
+    ON (u.id=f.f_id)
+    WHERE (f.u_id=${userId})
   `;
 };
 
-export const delFriendHelper = ({ u_id, f_id }) => {
+export const delFriendHelper = (friendKey) => {
   return `
     DELETE FROM friends
-    WHERE u_id in(${u_id}, ${f_id})
-    AND f_id in(${u_id}, ${f_id})
-    RETURNING u_id, f_id
+    WHERE friendKey=${friendKey}
+    RETURNING id
   `;
 }
 
-export const updateFriendHelper = ({ u_id, f_id, status }) => {
+export const updateFriendHelper = (friendKey, status) => {
+  console.log(`friendKey: ${friendKey}`)
   return `
     UPDATE friends
     SET status=${status}
-    WHERE u_id in(${u_id}, ${f_id})
-    AND f_id in(${u_id}, ${f_id})
-    RETURNING u_id, f_id, status
+    WHERE friend_key='${friendKey}'
+    RETURNING id, u_id, f_id, status, friend_key
   `;
 }
-//ocheyos
-//WHERE ((f.u_id=${u_id} AND f.status=1) OR (u.id=${u_id} AND f.status=0))
 
-//raymonds
-//WHERE (f.u_id=${u_id} OR u.id=${u_id})
+export const searchFriendHelper = (searchTerm) => {
+  return `
+    SELECT id, email, username, avatar
+    FROM users
+    WHERE username LIKE '${searchTerm}%'
+  `
+}

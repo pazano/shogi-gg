@@ -27,7 +27,7 @@ class Nav extends Component {
   render() {
     return (
       <div className="topnav">
-        <div className="topnav__logo"><Link to="/home"><HalfLockup palette={{ gg: '#FFF', text: '#FFF', glyph: '#f15a4a' }} /></Link></div>
+        <div className="topnav__logo"><Link to="/dashboard"><HalfLockup palette={{ gg: '#FFF', text: '#FFF', glyph: '#f15a4a' }} /></Link></div>
         <div className="topnav__play">
           <button onClick={() => this.handlePlayMatchClick(false)}>Quick Match</button>
           <button onClick={() => this.handlePlayMatchClick(true)}>Ranked</button>

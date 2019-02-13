@@ -18,7 +18,7 @@ import PlayerPanel from './PlayerPanel/index.jsx';
 import PlayerHand from './PlayerHand/index.jsx';
 import MatchLog from './MatchLog/index.jsx';
 import TurnIndicator from './TurnIndicator/index.jsx';
-import ChatPopup from '../Home/Chat/popup.jsx';
+import ChatPopup from '../Dashboard/Chat/popup.jsx';
 import GameChat from './Chat/index.jsx';
 import ModalPrompt from '../Global/Modals/Prompt/ModalPrompt.jsx';
 import ModalMenu from '../Global/Modals/Menu/ModalMenu.jsx';
@@ -500,7 +500,7 @@ class Match extends Component {
   quit = () => {
     this.socket.close();
     this.props.history.replace({
-      pathname: `/home`,
+      pathname: `/dashboard`,
       history: this.props.history
     });
   }
