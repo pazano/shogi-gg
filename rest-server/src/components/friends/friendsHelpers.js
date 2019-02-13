@@ -2,9 +2,9 @@ import { db } from "../../config/database/";
 import { success, error } from "../../lib/log";
 import { addFriendHelper, fetchAllFriendsHelper, delFriendHelper, updateFriendHelper, searchFriendHelper } from './friendsSQL';
 
-export const addFriendQuery = async body => {
+export const addFriendQuery = async (userId, friendId, status = 0) => {
   try {
-    const queryString = await addFriendHelper(body);
+    const queryString = await addFriendHelper(userId, friendId, status);
     const data = await db.queryAsync(queryString);
     success("addfriendsQuery - successfully retrieved data ", JSON.stringify(data.rows[0]));
     return data;

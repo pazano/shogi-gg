@@ -11,8 +11,10 @@ export const createFriendsTable = async () => {
         u_id INT NOT NULL,
         f_id INT NOT NULL,
         status INT NOT NULL,
-        friend_key INT NOT NULL,
+        friend_key VARCHAR NOT NULL,
         initiated_by INT NOT NULL,
+        CONSTRAINT unique_pair
+          UNIQUE(u_id, f_id),
         CONSTRAINT fk_friends_u_id
           FOREIGN KEY(u_id) REFERENCES users(id),
         CONSTRAINT fk_friends_f_id

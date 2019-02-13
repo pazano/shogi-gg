@@ -1,10 +1,11 @@
 import { addFriendQuery, fetchFriendQuery, delFriendQuery, updateFriendQuery, searchFriendQuery } from './friendsHelpers';
-import { success, error } from "../../lib/log";
+import { success, warning, log, error } from "../../lib/log";
 
 export const friendCtrl = {
   add: async (req, res) => {
     try {
-      const data = await addFriendQuery(req.body);
+      const { userId, friendId, status} = req.body;
+      const data = await addFriendQuery(userId, friendId, status);
       success("addFriendController - sucessfully retrieved data ", JSON.stringify(data.rows[0]));
       return res.status(200).send(data.rows[0]);
     } catch (err) {

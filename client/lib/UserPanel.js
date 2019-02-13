@@ -64,8 +64,17 @@ const userLookup = async (searchTerm) => {
   }
 }
 
-const createFriendInvite = async (userId, friendsName) => {
-
+const createFriendInvite = async (userId, friendId) => {
+  try {
+    const { data } = axios.post(
+      `${REST_SERVER_URL}/api/friends/`,
+      { userId, friendId, status: 0}, REQUEST_HEADER
+    );
+    return data;
+  } catch(err) {
+    console.warn('Create Friend Invite Failure');
+    return false;
+  }
 }
 
 // Open Invitations
@@ -97,6 +106,7 @@ export default {
   getUserFriendList,
   getUserChallenges,
   deleteChallenge,
+  createFriendInvite,
   acceptFriendInvite,
   rejectFriendInvite,
   userLookup

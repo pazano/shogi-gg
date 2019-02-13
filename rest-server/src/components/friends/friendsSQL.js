@@ -4,13 +4,13 @@
   updateFriend and deleteFriend use friendKey to tie together both records
 */
 
-const buildFriendKey = (u_id, f_id) => u_id < f_id ? u_id + f_id : f_id + u_id;
+const buildFriendKey = (u_id, f_id) => u_id < f_id ? '' + u_id + f_id : '' + f_id + u_id;
 
-export const addFriendHelper = ({ u_id, f_id, status = 0}) => {
-  const friendKey = buildFriendKey(u_id, f_id);
+export const addFriendHelper = (userId, friendId, status) => {
+  const friendKey = buildFriendKey(userId, friendId);
   return `
     INSERT INTO friends (u_id, f_id, status, friend_key, initiated_by)
-    VALUES (${u_id}, ${f_id}, ${status}, ${friendKey}, ${u_id}), (${f_id}, ${u_id}, ${status}, ${friendKey}, ${u_id})
+    VALUES (${userId}, ${friendId}, ${status}, ${friendKey}, ${userId}), (${friendId}, ${userId}, ${status}, ${friendKey}, ${userId})
     RETURNING id, u_id, f_id, status, friend_key
   `;
 };
@@ -38,7 +38,7 @@ export const updateFriendHelper = (friendKey, status) => {
   return `
     UPDATE friends
     SET status=${status}
-    WHERE friend_key=${friendKey}
+    WHERE friend_key='${friendKey}'
     RETURNING id, u_id, f_id, status, friend_key
   `;
 }
